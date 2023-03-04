@@ -9,6 +9,7 @@ for char in ciphertext:
         stored_letters[char] += 1
 
 print(stored_letters)
+
 attempt = ciphertext.replace("p", "I")
 attempt = attempt.replace("j", "C")
 attempt = attempt.replace("o", "H")
