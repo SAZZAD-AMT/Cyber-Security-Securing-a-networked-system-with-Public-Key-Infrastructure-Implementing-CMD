@@ -1,0 +1,23 @@
+1. sudo nano /etc/netplan/1-network-manager-all.yaml
+Copy and paste .............. to ...................
+......................................................
+# Let NetworkManager manage all devices on this system
+network:
+    version: 2
+    renderer: NetworkManager
+    ethernets:
+        enp0s3:
+            dhcp4: no
+            addresses: [192.168.0.110 Your machine client ip address/24]
+            routes:
+                - to: default
+                  via: 192.168.0.1
+            nameservers:
+                addresses: [192.168.0.109 your machine host ip address]
+                search: [verysecureserver.com]
+
+........................................................
+
+2. sudo netplan try
+3. sudo resolvectl status
+4. nslookup host/client ip

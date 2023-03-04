@@ -1,0 +1,186 @@
+1. sudo add-apt-repository ppa:ondrej/php
+2. apt update
+3. open synaptic
+4. search apache2
+5. apche2, bin, data utlis mark for installation
+6. php7.4 and php8 search mark all
+7. apply
+
+problem apache 2 reload: important
+sudo a2enmod *.load
+systemctl restart apache2
+
+
+
+
+
+command for permission folder
+sudo chown -R $USER:$USER /var/www/  
+
+folder read write permission
+
+sudo chmod -R 777 /var/www
+or
+sudo chmod -R 777 /var/www/server/uploaded_files
+
+27.sudo a2dissite 000-default
+28.systemctl reload apache2
+29.sudo a2ensite main
+30.systemctl reload apache2
+
+
+Restrat server: Starting And Stopping Apache and Database Server
+8. service apache2 stop
+9. service apache2 start
+10. service apache2 status
+11. service apache2 restart
+12. service apache2 reload
+
+
+DNS Configuration
+package: 
+13. sudo apt install bind9
+14. sudo apt install dnsutils
+14.1 sudo systemctl restart bind9.service
+
+15. sudo nano /etc/resolv.conf
+copy and paste ... to ...
+........................................
+nameserver 127.0.0.1
+options edns0 trust-ad
+search localdomain
+........................................
+
+16. sudo nano /etc/named.conf
+copy and paste.... to.....
+..........................................................................................................
+//
+//named.conf
+// Provided by Red Hat bind package to configure the ISC BIND named(8) DNS
+// server as a caching only name server (as a localhost DNS resolver only).
+// See /usr/share/doc/bind*/sample/ for example named configuration files.
+//
+
+options {
+        listen-on port 53 { 127.0.0.1;};
+//      listen-on-v6 port 53 { ::1; };
+        forwarders { 8.8.8.8; 8.8.4.4; };
+        directory       "/var/named";
+        dump-file       "/var/named/data/cache_dump.db";
+        statistics-file "/var/named/data/named_stats.txt";
+        memstatistics-file "/var/named/data/named_mem_stats.txt";
+        allow-query     { localhost; 192.168.0.0/24, 127.0.0.1 };
+        recursion yes;
+
+
+        dnssec-enable yes;
+        dnssec-validation yes;
+        dnssec-lookaside auto;
+
+
+        /* Path to ISC DLV key */
+        bindkeys-file "/etc/named.iscdlv.key";
+
+
+        managed-keys-directory "/var/named/dynamic";
+};
+logging {
+        channel default_debug {
+                file "data/named.run";
+                severity dynamic;
+        };
+};
+zone "." IN {
+        type hint;
+        file "named.ca";
+};
+include "/etc/named.rfc1912.zones";
+include "/etc/named.root.key";
+...............................................................................................................
+
+17. dig google.com
+18. nslookup google.com
+
+19. systemctl enable named
+20. systemctl start named
+
+21. sudo nano /etc/bind/verysecureserver.com.zone
+
+copy paste ...... to ......
+.........................................................................................
+; Authoritative data for verysecureserver.com zone
+;
+$TTL 1D
+@ IN SOA verysecureserver.com root.verysecureserver.com. (
+2022041301 ; serial
+1D ; refresh
+1H ; retry
+1W ; expire
+3H ) ; minimum
+$ORIGIN verysecureserver.com.
+verysecureserver.com. IN NS verysecureserver.com.
+@ IN A 127.0.0.1
+.........................................................................................
+
+22. sudo nano /etc/bind/named.conf.local
+copy and paste ....... to ........ 
+................................................................................
+zone "verysecureserver.com" IN {
+        type master;
+        file "/etc/bind/verysecureserver.com.zone";
+};
+..............................................................................
+
+23. systemctl enable named
+24. systemctl start named
+25. systemctl restart named
+
+26. dig verysecureserver.com
+27. nslookup verysecureserver.com
+
+
+Create certificate ans sign this site with the certificate
+
+28. mkdir {root-ca,sub-ca,server}
+29. mkdir {root-ca,sub-ca,server}/{private,certs,newcerts,crl,csr}
+
+30. touch root-ca/index
+31. touch sub-ca/index
+
+32. openssl genrsa -aes256 -out root-ca/private/ca.key 4096
+33. openssl genrsa -aes256 -out sub-ca/private/sub-ca.key 4096
+34. openssl genrsa -out server/private/server.key 2048
+
+35. cd root-ca
+36. openssl req -config root-ca.conf -key private/ca.key -new -x509 -days 7200 -sha256 -extensions v3_ca -out certs/ca.crt
+#common name : Acme-RootCA
+
+37. cd ../sub-ca/
+38. openssl req -config sub-ca.conf -new -key private/sub-ca.key -sha256 -out csr/sub-ca.csr
+#common name : Acme
+
+39. cd ../root-ca
+40. openssl ca -config root-ca.conf -extensions v3_intermediate_ca -days 3650 -notext -in ../sub-ca/csr/sub-ca.csr -out ../sub-ca/certs/sub-ca.crt -rand_serial
+
+41. cd ../server
+42. openssl req -config server.conf -key private/server.key -new -sha256 -out csr/server.csr
+#common name : verysecureserver.com
+
+43. cd ../sub-ca
+44. openssl ca -config sub-ca.conf -extensions server_cert -days 365 -notext -in ../server/csr/server.csr -out ../server/certs/server.crt -rand_serial
+
+45. cd ..
+46. cat ./server/certs/server.crt ./sub-ca/certs/sub-ca.crt > chained.crt
+
+
+
+# Revoke certificate
+47. cd sub-ca
+48. openssl ca -config sub-ca.conf -revoke ../server/certs/server.crt
+
+# Add CRL to server 
+49. cd sub-ca
+50. nano crlnumber
+#type: 1002
+
+51. openssl ca -config sub-ca.conf -gencrl -out crl/rev.crl
