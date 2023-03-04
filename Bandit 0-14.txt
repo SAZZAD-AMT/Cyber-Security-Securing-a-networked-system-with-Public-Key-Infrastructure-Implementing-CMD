@@ -1,0 +1,37 @@
+ssh bandit14@bandit.labs.overthewire.org -p 2220
+
+
+
+bandit 0 : bandit0
+
+bandit 0-1: NH2SXQwcBdpmTEzi3bvBHMM9H66vVXjL
+
+bandit 1-2: rRGizSaX8Mk1RTb1CNQoXTcYZWU6lgzi
+
+bandit 2-3: aBZ0W5EmUfAf7kHTQeOwd8bauFJ2lAiG
+
+bandit 3-4: 2EW7BBsr6aMMoJ2HjW067dm8EgX26xNe
+
+bandit 4-5: lrIWWI6bB37kxfiCQZqUdOIYfr6eEeqR
+
+bandit 5-6: P4L4vucdmLnm8I7Vl7jG1ApGSfjYKqJU
+
+bandit 6-7: z7WtoNQU2XfjmMtWA8u5rN4vzqu4v99S
+
+bandit 7-8: TESKZC0XvTetK0S9xNwm25STk5iWrBvP
+
+bandit 8-9: EN632PlfYiZbn3PhVK3XOGSlNInNE00t
+
+bandit 9-10: G7w8LIi6J3kTb8A7j9LgrywtEUlyyp6s
+
+bandit 10-11: 6zPeziLdR2RKNdNYFNb6nVCKzphlXHBM
+
+bandit 11-12: JVNBBFSmZwKKOP0XbFXOoW8chDz5yVRv
+
+bandit 12-13: wbWdlBxEir4CaE8LaPhauuOo6pwRmrDw
+
+Bandit 13-14 : fGrHPx402xGC7U7rXKDaxiWFTOiF0ENq
+
+Bandit 14-15: jN2kgmIXJ6fShzhT2avhotn4Zcka6tnt
+
+bandit 15-16: JQttfApK4SeyHwDlI9SXGR50qclOAil1
