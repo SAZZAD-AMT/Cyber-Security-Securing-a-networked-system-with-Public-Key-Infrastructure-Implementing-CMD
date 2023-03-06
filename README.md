@@ -15,7 +15,7 @@ PlayFair Cipher, Polyalphabetic
 One Time Pad, Vigenere Tableau.
 
 <li> Pass up to level 14 in Bandit Wargame 
-<li> Configure root CA, sub CA, and a server that uses https://
+<li> Configure root CA, sub CA, and a server that uses https: //
 <li> Password Cracking
 <li> Apply Mask attack on the hash using hashcat.
 <li> Understand the basics and problems of Diffie-Hellman Key Exchange
