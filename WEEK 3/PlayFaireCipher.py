@@ -2,10 +2,8 @@ key = input("Enter the key: ")
 key = key.replace(" ", "")
 key = key.upper()
 
-
 def matrix(x, y, initial):
     return [[initial for i in range(x)] for j in range(y)]
-
 
 result = list()
 for c in key:  # storing key
@@ -31,7 +29,6 @@ for i in range(0, 5):  # making matrix
         my_matrix[i][j] = result[k]
         k += 1
 
-
 def locindex(c):  # get location of each character
     loc = list()
     if c == 'J':
@@ -42,7 +39,6 @@ def locindex(c):  # get location of each character
                 loc.append(i)
                 loc.append(k)
                 return loc
-
 
 def encrypt():  # Encryption
     msg = str(input("ENTER MSG:"))
@@ -69,7 +65,6 @@ def encrypt():  # Encryption
             print("{}{}".format(my_matrix[loc[0]][loc1[1]], my_matrix[loc1[0]][loc[1]]), end=' ')
         i = i + 2
 
-
 def decrypt():  # decryption
     msg = str(input("ENTER CIPHER TEXT:"))
     msg = msg.upper()
@@ -88,7 +83,6 @@ def decrypt():  # decryption
         else:
             print("{}{}".format(my_matrix[loc[0]][loc1[1]], my_matrix[loc1[0]][loc[1]]), end=' ')
         i = i + 2
-
 
 while (1):
     choice = int(input("\nChosse one of them\n \t1.Encryption \n \t2.Decryption \n \t3.EXIT\nEnter your option: "))

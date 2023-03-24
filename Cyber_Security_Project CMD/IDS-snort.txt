@@ -1,0 +1,8 @@
+Host:
+cd /etc/snort/rules
+sudo nano icmp.rules
+sudo snort -A console -q -u snort -g snort -c /etc/snort/snort.conf -i enp0s3
+
+client:
+ping 192.168.56.101
+

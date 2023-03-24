@@ -28,12 +28,10 @@ key_dict = {
     ' ': ' ',
 }
 
-
 def get_key(value):
     for key, val in key_dict.items():
         if (val == value):
             return key
-
 
 def monoalphabetic_encrypt(word):
     c = ''
@@ -42,14 +40,12 @@ def monoalphabetic_encrypt(word):
         c += i
     return c
 
-
 def monoalphabetic_decrypt(word):
     c = ''
     for i in word:
         i = get_key(i)
         c += i
     return c
-
 
 encryptText = monoalphabetic_encrypt("rock and roll")
 print("Encrypt : ",encryptText)

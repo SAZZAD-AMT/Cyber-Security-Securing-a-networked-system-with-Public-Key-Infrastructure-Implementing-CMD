@@ -10,7 +10,7 @@ hostName = "192.168.0.112"
 Port = 9999
 s.connect((hostName, Port))
 s.setsockopt(socket.IPPROTO_IP, IN.IP_MTU_DISCOVER, IN.IP_PMTUDISC_DO)
-MTU_Size = 1000    #1488
+MTU_Size = 1500   #1488
 try:
     s.send(b'#' * 44 * MTU_Size)
 except socket.error:

@@ -7,7 +7,6 @@ def generateKey(string, key):
             key.append(key[i % len(key)])
     return ("".join(key))
 
-
 def encryption(string, key):
     encrypt_text = []
     for i in range(len(string)):
@@ -16,7 +15,6 @@ def encryption(string, key):
         encrypt_text.append(chr(x))
     return ("".join(encrypt_text))
 
-
 def decryption(encrypt_text, key):
     orig_text = []
     for i in range(len(encrypt_text)):
@@ -24,7 +22,6 @@ def decryption(encrypt_text, key):
         x += ord('A')
         orig_text.append(chr(x))
     return ("".join(orig_text))
-
 
 if __name__ == "__main__":
     string = input("Enter the message(Use only upper case): ")

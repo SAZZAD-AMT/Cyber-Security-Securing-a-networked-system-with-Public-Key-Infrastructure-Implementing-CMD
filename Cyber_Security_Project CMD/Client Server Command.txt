@@ -8,12 +8,12 @@ network:
     ethernets:
         enp0s3:
             dhcp4: no
-            addresses: [192.168.0.110 Your machine client ip address/24]
+            addresses: [192.168.56.105 client /24]
             routes:
                 - to: default
                   via: 192.168.0.1
             nameservers:
-                addresses: [192.168.0.109 your machine host ip address]
+                addresses: [192.168.56.101 host ]
                 search: [verysecureserver.com]
 
 ........................................................
