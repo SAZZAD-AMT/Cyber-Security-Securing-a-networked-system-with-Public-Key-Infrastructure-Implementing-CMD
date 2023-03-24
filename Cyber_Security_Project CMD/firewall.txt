@@ -1,0 +1,2 @@
+sudo ufw status verbose
+sudo ufw default allow outgoing
