@@ -1,0 +1,6 @@
+
+
+crunch 6 6 -t CSE%%% -o wordlist.txt -b 16
+hashcat -m 1400 -a 0 h.txt wordlist.txt
+
+
