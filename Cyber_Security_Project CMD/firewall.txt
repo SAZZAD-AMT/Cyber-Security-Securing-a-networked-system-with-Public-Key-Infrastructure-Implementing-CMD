@@ -1,2 +1,6 @@
 sudo ufw status verbose
 sudo ufw default allow outgoing
+
+sudo ufw allow 53
+sudo ufw allow from 192.168.0.101 to any port 43
+sudo ufw delete 5
